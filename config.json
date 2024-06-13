@@ -4,8 +4,8 @@
   "useEnvForCredentials": false,
   "envGuide": "When useEnvForCredentials enabled, it will use the process.env key provided for email and password, which helps hide your credentials, you can find env in render's environment tab, you can also find it in replit secrets.",
   "DeveloperMode": true,
-  "autoCreateDB": true,
-  "allowInbox": false,
+  "autoCreateDB": false,
+  "allowInbox": true,
   "autoClean": true,
   "adminOnly": false,
   "encryptSt": false,
@@ -29,8 +29,8 @@
   ],
   "DESIGN": {
     "Title": "BotPack",
-    "Theme": "Blue",
-    "Admin": "YOUR_NAME",
+    "Theme": "Ghost",
+    "Admin": "mot",
     "Setup": {
       "Info": "Design your own custom terminal Titlebar for the title and must contain no numbers",
       "Theme": "Customize your console effortlessly with various theme colors. Explore Aqua, Fiery, Blue, Orange, Pink, Red, Retro, Sunlight, Teen, Summer, Flower, Ghost, Purple, Rainbow, and Hacker themes to enhance your terminal logs."
@@ -42,19 +42,19 @@
   "FCAOption": {
     "forceLogin": false,
     "listenEvents": true,
-    "autoMarkDelivery": false,
-    "autoMarkRead": false,
+    "autoMarkDelivery": true,
+    "autoMarkRead": true,
     "logLevel": "error",
     "selfListen": false,
     "online": true,
     "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/600.3.18 (KHTML, like Gecko) Version/8.0.3 Safari/600.3.18"
   },
   "daily": {
-    "cooldownTime": 10,
+    "cooldownTime": 1,
     "rewardCoin": 999999
   },
   "work": {
-    "cooldownTime": 10
+    "cooldownTime": 1
   },
   "help": {
     "autoUnsend": true,
