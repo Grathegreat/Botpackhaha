@@ -14,7 +14,7 @@ module.exports.run = async ({ api, event,}) => {
   const fs = require("fs");
 
   api.sendMessage(`⏱️ | Video is sending please wait.`, event.threadID, event.messageID);
-axios.get('https://jeka-api.luabot24.repl.co/random/?apikey=ralph').then(res => {
+axios.get('https://api--v1-shoti.vercel.app/api/v1/get').then(res => {
   let ext = res.data.url.substring(res.data.url.lastIndexOf(".") + 1);
   let callback = function () {
           api.sendMessage({
