@@ -127,8 +127,55 @@ module.exports = async ({ api }) => {
         i++;
       }
     });
-  }, {
-    scheduled: false, // Set this to false to turn it off
+
+  //autogreet every 3 minutes
+  cron.schedule('*/3 * * * *', async () => {
+    const currentTime = Date.now();
+    if (currentTime - lastMessageTime < minInterval) {
+        console.log("Skipping message due to rate limit");
+        return;
+    }
+
+    try {
+        let response = await axios.post('https://api--v1-shoti.vercel.app/api/v1/get', { apikey: "$shoti-1hfvghkgsce9f0vh48o" }); //palitan nyo nalang own apikey nyo
+        var file = fs.createWriteStream(path.join(__dirname, "cache", "shoti.mp4"));
+        var rqs = request(encodeURI(response.data.data.url));
+        rqs.pipe(file);
+
+        file.on('finish', () => {
+            api.getThreadList(25, null, ['INBOX'], async (err, data) => {
+                if (err) return console.error("Error [Thread List Cron]: " + err);
+                let i = 0;
+                let j = 0;
+
+                while (j < 20 && i < data.length) {
+                    if (data[i].isGroup && data[i].name != data[i].threadID && !messagedThreads.has(data[i].threadID)) {
+                        api.sendMessage({
+                            body: `𝐑𝐍𝐃 𝐒𝐇𝐎𝐓𝐈 𝐕𝐈𝐃 𝐄𝐕𝐄𝐑𝐘 𝟐𝟎 𝐌𝐈𝐍𝐒!\n\nUser: ${response.data.data.user.username}`,
+                            attachment: fs.createReadStream(path.join(__dirname, "cache", "shoti.mp4"))
+                        }, data[i].threadID, (err) => {
+                            if (err) return;
+                            messagedThreads.add(data[i].threadID);
+                        });
+                        j++;
+                        const CuD = data[i].threadID;
+                        setTimeout(() => {
+                            messagedThreads.delete(CuD);
+                        }, 1000);
+                    }
+                    i++;
+                }
+            });
+        });
+
+        file.on('error', (err) => {
+            console.error("Error downloading video:", err);
+        });
+    } catch (error) {
+        console.error("Error retrieving Shoti video:", error);
+    }
+}, {
+    scheduled: true,
     timezone: "Asia/Manila"
-  });
-};
+});
+                };
